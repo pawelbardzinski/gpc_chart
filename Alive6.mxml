@@ -3434,14 +3434,14 @@
 			}
 			
 			public function makeButtonsFontLightColor():void	{
-//				latestGoldBtn.setStyle("color","0xc7c701");				
-//				latestSilverBtn.setStyle("color","0xc7c701");				
-				latestPlatinumBtn.setStyle("color","0xc7c701");				
-				latestPalladiumBtn.setStyle("color","0xc7c701");
-				gldslvratioBtn.setStyle("color","0xc7c701");				
-				gldpltratioBtn.setStyle("color","0xc7c701");	
-				indivChartBtn.setStyle("color","0xc7c701");
-				newButton.setStyle("color","0xc7c701");
+				latestGoldBtn.setStyle("color","0xffffff");				
+				latestSilverBtn.setStyle("color","0xffffff");				
+				latestPlatinumBtn.setStyle("color","0xffffff");				
+				latestPalladiumBtn.setStyle("color","0xffffff");
+				gldslvratioBtn.setStyle("color","0xffffff");				
+				gldpltratioBtn.setStyle("color","0xffffff");	
+				indivChartBtn.setStyle("color","0xffffff");
+				newButton.setStyle("color","0xffffff");
 			}
 			
 			public function deEmphasize(s:String):void	{
@@ -3452,67 +3452,67 @@
 					radioGram.enabled = true;
 				}
 				switch (s)	{
-					case 'gold': latestSilverBtn.emphasized = latestPlatinumBtn.emphasized = latestPalladiumBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'gold': latestSilverBtn.selected = latestPlatinumBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk zloto");
 						makeButtonsFontLightColor();
-						latestGoldBtn.emphasized = true;
-//						latestGoldBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
+						latestGoldBtn.selected = true;
+						latestGoldBtn.setStyle("color","0x533b07");
+//						totalWorth.setStyle("color","0x5f5f00");
 						layoutRedesign('system');
 						return;
-					case 'silver': latestGoldBtn.emphasized = latestPlatinumBtn.emphasized = latestPalladiumBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'silver': latestGoldBtn.selected = latestPlatinumBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk srebro");
 						makeButtonsFontLightColor();
-//						latestSilverBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
-						latestSilverBtn.emphasized = true;
+						latestSilverBtn.setStyle("color","0x533b07");
+//						totalWorth.setStyle("color","0x5f5f00");
+						latestSilverBtn.selected = true;
 						layoutRedesign('system');
 						return;
-					case 'platinum': latestGoldBtn.emphasized = latestSilverBtn.emphasized = latestPalladiumBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'platinum': latestGoldBtn.selected = latestSilverBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk platyna");
 						makeButtonsFontLightColor();
-						latestPlatinumBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
-						latestPlatinumBtn.emphasized = true;
+						latestPlatinumBtn.setStyle("color","0x533b07");
+//						totalWorth.setStyle("color","0x5f5f00");
+						latestPlatinumBtn.selected = true;
 						layoutRedesign('system');
 						return;
-					case 'palladium': latestSilverBtn.emphasized = latestPlatinumBtn.emphasized = latestGoldBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'palladium': latestSilverBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk palad");
 						makeButtonsFontLightColor();
-						latestPalladiumBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
-						latestPalladiumBtn.emphasized = true;
+						latestPalladiumBtn.setStyle("color","0x533b07");
+//						totalWorth.setStyle("color","0x5f5f00");
+						latestPalladiumBtn.selected = true;
 						layoutRedesign('system');
 						return;
-					case 'individual': latestSilverBtn.emphasized = latestPalladiumBtn.emphasized = latestPlatinumBtn.emphasized = latestGoldBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'individual': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk indywidualny: "+ numForm.format(parseFloat(totalWorthv)) + ' ' + currencyComboBoxGold.selectedLabel  );
 						makeButtonsFontLightColor();
-						indivChartBtn.setStyle("color","0xffff00");
-						indivChartBtn.emphasized = true;
+//						indivChartBtn.setStyle("color","0xffff00");
+						indivChartBtn.selected = true;
 						layoutRedesign('system');
-						totalWorth.setStyle("color","0xffff00");
+//						totalWorth.setStyle("color","0xffff00");
 						return;
-					case 'gldslvratio': latestSilverBtn.emphasized = latestPalladiumBtn.emphasized = latestPlatinumBtn.emphasized = latestGoldBtn.emphasized = indivChartBtn.emphasized = gldpltratioBtn.emphasized = newButton.emphasized = false;
+					case 'gldslvratio': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk gld/slv");
 						makeButtonsFontLightColor();
 						gldslvratioBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
-						gldslvratioBtn.emphasized = true;
+//						totalWorth.setStyle("color","0x5f5f00");
+						gldslvratioBtn.selected = true;
 						layoutRedesign('system');
 						return;
-					case 'gldpltratio': latestSilverBtn.emphasized = latestPalladiumBtn.emphasized = latestPlatinumBtn.emphasized = latestGoldBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = newButton.emphasized = false;
+					case 'gldpltratio': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = newButton.selected = false;
 						tracker.trackPageview("przycisk gld/plt");
 						makeButtonsFontLightColor();
 						gldpltratioBtn.setStyle("color","0xffff00");
-						totalWorth.setStyle("color","0x5f5f00");
-						gldpltratioBtn.emphasized = true;
+//						totalWorth.setStyle("color","0x5f5f00");
+						gldpltratioBtn.selected = true;
 						layoutRedesign('system');
 						return;
-					case 'user': latestSilverBtn.emphasized = latestPalladiumBtn.emphasized = latestPlatinumBtn.emphasized = latestGoldBtn.emphasized = indivChartBtn.emphasized = gldslvratioBtn.emphasized = gldpltratioBtn.emphasized = false;
+					case 'user': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = false;
 						makeButtonsFontLightColor();
 						newButton.setStyle("color","0xffff00");
 						totalWorth.setStyle("color","0x5f5f00");
-						newButton.emphasized = true;
+						newButton.selected = true;
 						currencyComboBoxGold.enabled = false;
 						radioOunce.enabled = false;
 						radioGram.enabled = false;
@@ -4469,11 +4469,11 @@
 			<!--s:Spacer height="50"/-->
 		</s:HGroup>
 		<s:HGroup>
-			<!--mx:Button id="latestGoldBtn" width="200" height="50" emphasized="true" styleName="customButton" label="Gold: {numForm.format(latestGoldPrice)} {currencyCode}     " click="{metal='gld'; deEmphasize('gold'); osy.title=chartLabel.text='Live Gold Price'; populateChart('');}"/-->
-			<mx:Button id="latestGoldBtn" selected="true" width="200" height="50" emphasized="true" styleName="topButtonsStyle" label="GOLD: {numForm.format(latestGoldPrice)}" click="{metal='gld'; osy.title=chartLabel.text='Live Gold Price'; populateChart('');}" />
+			<!--mx:Button id="latestGoldBtn" width="200" height="50" selected="true" styleName="customButton" label="Gold: {numForm.format(latestGoldPrice)} {currencyCode}     " click="{metal='gld'; deEmphasize('gold'); osy.title=chartLabel.text='Live Gold Price'; populateChart('');}"/-->
+			<mx:Button id="latestGoldBtn" width="200" height="50" selected="true" styleName="topButtonsStyle" label="GOLD: {numForm.format(latestGoldPrice)}" click="{metal='gld'; deEmphasize('gold'); osy.title=chartLabel.text='Live Gold Price'; populateChart('');}" />
 			<mx:Button id="latestSilverBtn" width="200" height="50" styleName="topButtonsStyle" label="SILVER:   {numForm.format(latestSilverPrice)}" click="{metal='slv'; deEmphasize('silver'); osy.title=chartLabel.text='Live Silver Price'; populateChart('');}"/>
-			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="topButtonsStyle" label="PLATINUM:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
-			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="topButtonsStyle" label="PALLADIUM:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
+			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="topButtonsStyle" label="PLATINUM:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" />
+			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="topButtonsStyle" label="PALLADIUM:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" />
 			<mx:ComboBox id="currencyComboBoxGold" change="{tracker.trackPageview('waluta: '+currencyComboBoxGold.selectedLabel); if (chartbtn.selectedIndex==2) populateChart('history') else if (indivChartBtn.emphasized) populateChart('individual') else if (newButton.emphasized) populateChart('user') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');gldWorthv=(parseFloat(latestGoldPrice)*parseFloat(goldozcalc.text)).toFixed(2); slvWorthv=(parseFloat(latestSilverPrice)*parseFloat(silvozcalc.text)).toFixed(2); pltWorthv=(parseFloat(latestPlatinumPrice)*parseFloat(platozcalc.text)).toFixed(2); pldWorthv=(parseFloat(latestPalladiumPrice)*parseFloat(pallozcalc.text)).toFixed(2); totalWorthv=(parseFloat(gldWorthv)+parseFloat(slvWorthv)+parseFloat(pltWorthv)+parseFloat(pldWorthv)).toString(); buildChartLabel(); }"
 						 dataProvider="{currencies}" fontSize="20" textRollOverColor="Yellow" dropdownStyleName="customDropDown" selectedIndex="23" height="50" styleName="customButton"
 						 textInputStyleName="customDropDownText" disabledColor="0x5f5f00"/>
