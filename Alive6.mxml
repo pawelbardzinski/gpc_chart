@@ -655,8 +655,8 @@
 			private function onCreationComplete(e:Event):void 
 			{
 				//				rotationIntervalAdjuster.addEventListener(TimerEvent.TIMER, tick);
-				this.scaleX = 0.60;
-				this.scaleY = 0.60;
+				/*this.scaleX = 0.60;
+				this.scaleY = 0.60;*/
 				busyOn();
 				init(); 
 			}
@@ -665,25 +665,12 @@
 				if ((weekend == "weekend") && (chartbtn.selectedIndex != 2))	{
 					if (WKD == false)	{
 						WKD = true;
-//						chartBkdLabel.x = 450;
 					}
-	/*				if (chartBkdLabel.x == 0) {
-						negative = false;
-					}
-					if (chartBkdLabel.x == 450) {
-						negative = true;
-					} */
-					chartBkdLabel.setStyle("color","0x656500");
+/*					chartBkdLabel.setStyle("color","0x656500");
 					chartBkdLabel.setStyle("fontSize","40");
-/*					timer.delay = 100;
-					if (negative)	{
-						chartBkdLabel.x -= 3;
-					} else	{
-						chartBkdLabel.x += 3;						
-					} */
 					chartBkdLabel.y = -147;
 					chartBkdLabel.x = 20;
-					chartBkdLabel.text = 'The Market is Closed. Latest Prices:';
+					chartBkdLabel.text = 'The Market is Closed. Latest Prices:'; */
 					return;
 				} 
 				
@@ -4479,18 +4466,17 @@
 		<!--mx:HBox-->
 		<s:VGroup>
 		<s:HGroup>
-			<!--s:Label text="Next Live Price Update 00:57" fontSize="50" fontFamily="nextUpdate2" color="0x656500" /-->
-			<s:Spacer height="50"/>
+			<!--s:Spacer height="50"/-->
 		</s:HGroup>
 		<s:HGroup>
+			<!--mx:Button id="latestGoldBtn" width="200" height="50" emphasized="true" styleName="customButton" label="Gold: {numForm.format(latestGoldPrice)} {currencyCode}     " click="{metal='gld'; deEmphasize('gold'); osy.title=chartLabel.text='Live Gold Price'; populateChart('');}"/-->
+			<mx:Button id="latestGoldBtn" selected="true" width="200" height="50" emphasized="true" styleName="topButtonsStyle" label="GOLD: {numForm.format(latestGoldPrice)}" click="{metal='gld'; osy.title=chartLabel.text='Live Gold Price'; populateChart('');}" />
+			<mx:Button id="latestSilverBtn" width="200" height="50" styleName="topButtonsStyle" label="SILVER:   {numForm.format(latestSilverPrice)}" click="{metal='slv'; deEmphasize('silver'); osy.title=chartLabel.text='Live Silver Price'; populateChart('');}"/>
+			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="topButtonsStyle" label="PLATINUM:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
+			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="topButtonsStyle" label="PALLADIUM:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
 			<mx:ComboBox id="currencyComboBoxGold" change="{tracker.trackPageview('waluta: '+currencyComboBoxGold.selectedLabel); if (chartbtn.selectedIndex==2) populateChart('history') else if (indivChartBtn.emphasized) populateChart('individual') else if (newButton.emphasized) populateChart('user') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');gldWorthv=(parseFloat(latestGoldPrice)*parseFloat(goldozcalc.text)).toFixed(2); slvWorthv=(parseFloat(latestSilverPrice)*parseFloat(silvozcalc.text)).toFixed(2); pltWorthv=(parseFloat(latestPlatinumPrice)*parseFloat(platozcalc.text)).toFixed(2); pldWorthv=(parseFloat(latestPalladiumPrice)*parseFloat(pallozcalc.text)).toFixed(2); totalWorthv=(parseFloat(gldWorthv)+parseFloat(slvWorthv)+parseFloat(pltWorthv)+parseFloat(pldWorthv)).toString(); buildChartLabel(); }"
 						 dataProvider="{currencies}" fontSize="20" textRollOverColor="Yellow" dropdownStyleName="customDropDown" selectedIndex="23" height="50" styleName="customButton"
 						 textInputStyleName="customDropDownText" disabledColor="0x5f5f00"/>
-			<!--mx:Button id="latestGoldBtn" width="200" height="50" emphasized="true" styleName="customButton" label="Gold: {numForm.format(latestGoldPrice)} {currencyCode}     " click="{metal='gld'; deEmphasize('gold'); osy.title=chartLabel.text='Live Gold Price'; populateChart('');}"/-->
-			<mx:Button id="latestGoldBtn" selected="true" width="200" height="50" emphasized="true" styleName="topButtonsStyle" label="{numForm.format(latestGoldPrice)}" click="{metal='gld'; osy.title=chartLabel.text='Live Gold Price'; populateChart('');}" />
-			<mx:Button id="latestSilverBtn" width="200" height="50" styleName="customButton" label="Slv:   {numForm.format(latestSilverPrice)}" click="{metal='slv'; deEmphasize('silver'); osy.title=chartLabel.text='Live Silver Price'; populateChart('');}"/>
-			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="customButton" label="Plt:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
-			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="customButton" label="Pld:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" disabledColor="0x5f5f00" textRollOverColor="0xffff00" themeColor="0xffff00" />
 			<s:VGroup resizeMode="noScale">
 				<s:RadioButton id="radioOunce" groupName="{ouncesOrGramsGold}" color="Yellow" label="OZ" fontFamily="nextUpdate2" fontSize="10" selected="true" click="populateChart(''); buildChartLabel();" toolTip="Ounces" />
 				<s:RadioButton id="radioGram" groupName="{ouncesOrGramsGold}" color="Yellow" label="GR" fontFamily="nextUpdate2" fontSize="10" click="populateChart(''); buildChartLabel();" toolTip="Grams" />
