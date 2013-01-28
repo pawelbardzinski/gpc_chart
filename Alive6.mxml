@@ -17,6 +17,12 @@
 			fontFamily: nextUpdate2;
 			fontWeight: normal;	
 		}
+		
+		.customDropDown2
+		{
+				
+		}
+		
 		.customDropDown	
 		{
 			embedFonts: true;
@@ -93,7 +99,7 @@
 			fontColor: Yellow;
 		}
 		
-		/*Button {
+		.buttonDropDown	{
 			upSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
 			overSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
 			downSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
@@ -102,7 +108,35 @@
 			selectedOverSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
 			selectedDownSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
 			selectedDisabledSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
-		}*/
+			color: #FFFFFF;
+			text-roll-over-color: #FFFFBB;
+			text-selected-color: #9999FF;
+			disabled-color: #333333;
+			up-skin: Embed(
+				source="images/drop-down-button.png",
+				scaleGridTop="15",
+				scaleGridBottom="20",
+				scaleGridLeft="15",
+				scaleGridRight="28");
+			over-skin: Embed(
+				source="images/drop-down-button.png",
+				scaleGridTop="15",
+				scaleGridBottom="20",
+				scaleGridLeft="15",
+				scaleGridRight="28");
+			down-skin: Embed(
+				source="images/drop-down-button.png",
+				scaleGridTop="15",
+				scaleGridBottom="20",
+				scaleGridLeft="15",
+				scaleGridRight="28");
+			disabled-skin: Embed(
+				source="images/drop-down-button.png",
+				scaleGridTop="15",
+				scaleGridBottom="20",
+				scaleGridLeft="15",
+				scaleGridRight="28");				
+		}
 		
 		.topButtonsStyle {
 			upSkin:ClassReference('flexlib.skins.EnhancedButtonSkin');
@@ -140,7 +174,6 @@
 			paddingRight: 0;
 			paddingBottom: 0;
 			paddingTop: 0;
-
 		}
 	
 		.customFont
@@ -4475,7 +4508,7 @@
 			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="topButtonsStyle" label="PLATINUM:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" />
 			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="topButtonsStyle" label="PALLADIUM:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" />
 			<mx:ComboBox id="currencyComboBoxGold" change="{tracker.trackPageview('waluta: '+currencyComboBoxGold.selectedLabel); if (chartbtn.selectedIndex==2) populateChart('history') else if (indivChartBtn.emphasized) populateChart('individual') else if (newButton.emphasized) populateChart('user') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');gldWorthv=(parseFloat(latestGoldPrice)*parseFloat(goldozcalc.text)).toFixed(2); slvWorthv=(parseFloat(latestSilverPrice)*parseFloat(silvozcalc.text)).toFixed(2); pltWorthv=(parseFloat(latestPlatinumPrice)*parseFloat(platozcalc.text)).toFixed(2); pldWorthv=(parseFloat(latestPalladiumPrice)*parseFloat(pallozcalc.text)).toFixed(2); totalWorthv=(parseFloat(gldWorthv)+parseFloat(slvWorthv)+parseFloat(pltWorthv)+parseFloat(pldWorthv)).toString(); buildChartLabel(); }"
-						 dataProvider="{currencies}" fontSize="20" textRollOverColor="Yellow" dropdownStyleName="customDropDown" selectedIndex="23" height="50" styleName="customButton"
+						 dataProvider="{currencies}" fontSize="20" textRollOverColor="Yellow" dropdownStyleName="customDropDown" selectedIndex="23" height="50" styleName="buttonDropDown"
 						 textInputStyleName="customDropDownText" disabledColor="0x5f5f00"/>
 			<s:VGroup resizeMode="noScale">
 				<s:RadioButton id="radioOunce" groupName="{ouncesOrGramsGold}" color="Yellow" label="OZ" fontFamily="nextUpdate2" fontSize="10" selected="true" click="populateChart(''); buildChartLabel();" toolTip="Ounces" />
