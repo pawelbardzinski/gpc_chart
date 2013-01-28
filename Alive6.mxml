@@ -221,13 +221,6 @@
 			<s:SimpleMotionPath property="alpha"
 								valueFrom="1.0" valueTo="0.0" />
 		</s:Animate>
-		<analytics:FlexTracker
-			xmlns:analytics="com.google.analytics.components.*"
-			id="tracker"
-			account="UA-31150857-1"
-			mode="AS3"
-			visualDebug="false"
-		/>
 	</fx:Declarations>
 	
 	<fx:Script>
@@ -318,9 +311,6 @@
 			import spark.layouts.HorizontalLayout;
 			
 			import flexlib.skins.*;
-			
-/*			import com.google.analytics.GATracker;
-			import com.google.analytics.AnalyticsTracker; */
 			
 			[Bindable]
 			private var isThisZoomMode:Boolean = false;
@@ -548,7 +538,6 @@
 			[Bindable]
 			private var old_chartLabel:String = '';
 			private var checkIfFirstRun:Boolean = true;
-//			public var tracker:AnalyticsTracker;
 
 			// Server data push STARTS HERE:			
 			private function init():void
@@ -736,7 +725,6 @@
 							chartBkdLabel.text = 'Next Live Price Update ';     
 							overdueLabel.visible = true;
 							fader.play();
-							tracker.trackPageview("waiting...");
 							return;
 						}
 					}
@@ -750,10 +738,6 @@
 					chartBkdLabel.x = 0;
 					chartBkdLabel.y = -155;
 					chartBkdLabel.text = 'Next Live Price Update  '+mm+':'+ss;
-//					tracker.trackPageview("odlicza czas ok");
-/*				} else {
-					chartBkdLabel.text = '';
-				}*/
 			} 			
 			
 			private function busyOn():void
@@ -795,7 +779,6 @@
 				setTimeout(function():void { updateBtnChart.visible = false }, 400);
 				updateBtnPrices.visible = true;
 				setTimeout(function():void { updateBtnPrices.visible = false }, 600); */
-				tracker.trackPageview("chart updated");
 			}
 			
 			/*			private function deleteUpdateButton():void	{
@@ -3486,7 +3469,6 @@
 				}
 				switch (s)	{
 					case 'gold': latestSilverBtn.selected = latestPlatinumBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk zloto");
 						makeButtonsFontLightColor();
 						latestGoldBtn.selected = true;
 						latestGoldBtn.setStyle("color","0x533b07");
@@ -3494,7 +3476,6 @@
 						layoutRedesign('system');
 						return;
 					case 'silver': latestGoldBtn.selected = latestPlatinumBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk srebro");
 						makeButtonsFontLightColor();
 						latestSilverBtn.setStyle("color","0x533b07");
 //						totalWorth.setStyle("color","0x5f5f00");
@@ -3502,7 +3483,6 @@
 						layoutRedesign('system');
 						return;
 					case 'platinum': latestGoldBtn.selected = latestSilverBtn.selected = latestPalladiumBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk platyna");
 						makeButtonsFontLightColor();
 						latestPlatinumBtn.setStyle("color","0x533b07");
 //						totalWorth.setStyle("color","0x5f5f00");
@@ -3510,7 +3490,6 @@
 						layoutRedesign('system');
 						return;
 					case 'palladium': latestSilverBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk palad");
 						makeButtonsFontLightColor();
 						latestPalladiumBtn.setStyle("color","0x533b07");
 //						totalWorth.setStyle("color","0x5f5f00");
@@ -3518,7 +3497,6 @@
 						layoutRedesign('system');
 						return;
 					case 'individual': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = gldslvratioBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk indywidualny: "+ numForm.format(parseFloat(totalWorthv)) + ' ' + currencyComboBoxGold.selectedLabel  );
 						makeButtonsFontLightColor();
 //						indivChartBtn.setStyle("color","0xffff00");
 						indivChartBtn.selected = true;
@@ -3526,7 +3504,6 @@
 //						totalWorth.setStyle("color","0xffff00");
 						return;
 					case 'gldslvratio': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldpltratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk gld/slv");
 						makeButtonsFontLightColor();
 						gldslvratioBtn.setStyle("color","0xffff00");
 //						totalWorth.setStyle("color","0x5f5f00");
@@ -3534,7 +3511,6 @@
 						layoutRedesign('system');
 						return;
 					case 'gldpltratio': latestSilverBtn.selected = latestPalladiumBtn.selected = latestPlatinumBtn.selected = latestGoldBtn.selected = indivChartBtn.selected = gldslvratioBtn.selected = newButton.selected = false;
-						tracker.trackPageview("przycisk gld/plt");
 						makeButtonsFontLightColor();
 						gldpltratioBtn.setStyle("color","0xffff00");
 //						totalWorth.setStyle("color","0x5f5f00");
@@ -4507,7 +4483,7 @@
 			<mx:Button id="latestSilverBtn" width="200" height="50" styleName="topButtonsStyle" label="SILVER:   {numForm.format(latestSilverPrice)}" click="{metal='slv'; deEmphasize('silver'); osy.title=chartLabel.text='Live Silver Price'; populateChart('');}"/>
 			<mx:Button id="latestPlatinumBtn" width="200" height="50" styleName="topButtonsStyle" label="PLATINUM:   {numForm.format(latestPlatinumPrice)}" click="{metal='plt'; deEmphasize('platinum'); osy.title=chartLabel.text='Live Platinum Price'; populateChart('');}" />
 			<mx:Button id="latestPalladiumBtn" width="200" height="50" styleName="topButtonsStyle" label="PALLADIUM:   {numForm.format(latestPalladiumPrice)}" click="{metal='pld'; deEmphasize('palladium'); osy.title=chartLabel.text='Live Palladium Price'; populateChart('');}" />
-			<mx:ComboBox id="currencyComboBoxGold" change="{tracker.trackPageview('waluta: '+currencyComboBoxGold.selectedLabel); if (chartbtn.selectedIndex==2) populateChart('history') else if (indivChartBtn.emphasized) populateChart('individual') else if (newButton.emphasized) populateChart('user') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');gldWorthv=(parseFloat(latestGoldPrice)*parseFloat(goldozcalc.text)).toFixed(2); slvWorthv=(parseFloat(latestSilverPrice)*parseFloat(silvozcalc.text)).toFixed(2); pltWorthv=(parseFloat(latestPlatinumPrice)*parseFloat(platozcalc.text)).toFixed(2); pldWorthv=(parseFloat(latestPalladiumPrice)*parseFloat(pallozcalc.text)).toFixed(2); totalWorthv=(parseFloat(gldWorthv)+parseFloat(slvWorthv)+parseFloat(pltWorthv)+parseFloat(pldWorthv)).toString(); buildChartLabel(); }"
+			<mx:ComboBox id="currencyComboBoxGold" change="{if (chartbtn.selectedIndex==2) populateChart('history') else if (indivChartBtn.emphasized) populateChart('individual') else if (newButton.emphasized) populateChart('user') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');gldWorthv=(parseFloat(latestGoldPrice)*parseFloat(goldozcalc.text)).toFixed(2); slvWorthv=(parseFloat(latestSilverPrice)*parseFloat(silvozcalc.text)).toFixed(2); pltWorthv=(parseFloat(latestPlatinumPrice)*parseFloat(platozcalc.text)).toFixed(2); pldWorthv=(parseFloat(latestPalladiumPrice)*parseFloat(pallozcalc.text)).toFixed(2); totalWorthv=(parseFloat(gldWorthv)+parseFloat(slvWorthv)+parseFloat(pltWorthv)+parseFloat(pldWorthv)).toString(); buildChartLabel(); }"
 						 dataProvider="{currencies}" fontSize="20" textRollOverColor="Yellow" dropdownStyleName="customDropDown" selectedIndex="23" height="50" styleName="buttonDropDown"
 						 textInputStyleName="customDropDownText" disabledColor="0x5f5f00"/>
 			<s:VGroup resizeMode="noScale">
@@ -4582,7 +4558,7 @@
 		<!--mx:HBox id="hb2"-->
 		<s:HGroup id="buttonsGrp" autoLayout="true" includeInLayout="true" width="{chart.width - (chart.width/20)}" resizeMode="noScale">			
 			<local:ColoredToggleButtonBar id="chartbtn" buttonStyleName="customButton" color="#FFFF00" alpha="0.8" width="300" height="27"
-								fontSize="14" itemClick="tracker.trackPageview('typ wykresu: '+ chartbtn.selectedIndex.toString());zoomCheck(); if (chartbtn.selectedIndex==2) if ((USDh[0] == '') || (USDh[0] == null)) loadHistory() else populateChart('history') else latestSilverBtn.enabled = latestPlatinumBtn.enabled = latestPalladiumBtn.enabled = latestGoldBtn.enabled = radioGram.enabled = radioOunce.enabled = gldpltratioBtn.enabled = gldslvratioBtn.enabled = goldozcalc.enabled = silvozcalc.enabled = platozcalc.enabled = pallozcalc.enabled = indivChartBtn.enabled = true; if (indivChartBtn.emphasized) populateChart('individual') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (newButton.emphasized) populateChart('user') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');"
+								fontSize="14" itemClick="zoomCheck(); if (chartbtn.selectedIndex==2) if ((USDh[0] == '') || (USDh[0] == null)) loadHistory() else populateChart('history') else latestSilverBtn.enabled = latestPlatinumBtn.enabled = latestPalladiumBtn.enabled = latestGoldBtn.enabled = radioGram.enabled = radioOunce.enabled = gldpltratioBtn.enabled = gldslvratioBtn.enabled = goldozcalc.enabled = silvozcalc.enabled = platozcalc.enabled = pallozcalc.enabled = indivChartBtn.enabled = true; if (indivChartBtn.emphasized) populateChart('individual') else if (gldslvratioBtn.emphasized) populateChart('goldsilverratio') else if (newButton.emphasized) populateChart('user') else if (gldpltratioBtn.emphasized) populateChart('goldplatinumratio') else populateChart('');"
 								selectedIndex="1" dataProvider="['Last 3 Days','Today','History']" selectedFontColor="#ffff00" selectedButtonColor="#ffff00"
 								selectedButtonBorderColor="#ffff00" themeColor="0xffff00" > <!--creationComplete="selectChart()" -->
 				<!--mx:dataProvider>
