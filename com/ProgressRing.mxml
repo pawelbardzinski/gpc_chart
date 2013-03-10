@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	author: Maciej Forycki 
+	date:	03/05/2013
+  -->
+  
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		   xmlns:mx="library://ns.adobe.com/flex/mx"
+		   creationComplete="init()"
+		   resize="resizeHandler()">
+	
+	<fx:Script>
+
+		<![CDATA[
+		
+			import flash.events.Event;
+			import flash.events.TimerEvent;
+			import flash.geom.Point;
+			import flash.utils.Timer;
+			import flash.display.BlendMode;
+			import flash.display.Graphics;
+			
+			/** 
+			 *	Kolor pierwszoplanowy.
+			 * 
+			 *  @default 0x007c61
+			 */
+			public function get activeColor():uint
+			{
+				return m_activeColor;
+			}						
+					
+			public function set activeColor(color:uint):void
+			{
+				m_activeColor = color;
+			}
+			
+			/** 
+			 *	Kolor tła.
+			 * 
+			 *  @default 0xe3dfd6
+			 */
+			public function get inactiveColor() : uint 
+			{
+				return m_inactiveColor;
+			}
+			
+			public function set inactiveColor( color:uint ) : void
+			{
+				m_inactiveColor = color;
+			}			
+			
+			/** 
+			 *	Szerokość pierścienia w pikselach. Ma pierwszeństwo
+			 *	przed <code>ringWidthPercent</code>. 
+			 *  
+			 *  @default -1
+			 * 	@see #ringWidthPercent.
+			 */
+			public function get ringWidth():int
+			{
+				return m_ringWidth;
+			}
+			
+			public function set ringWidth(width:int):void
+			{
+				m_ringWidth = width;
+			}
+			
+			/** 
+			 *	Szerokość pierścienia w procentach promienia. 
+			 * 
+			 *  @default 50
+			 */			
+			public function get ringWidthPercent() : Number
+			{
+				return m_ringWidthPercent;
+			}
+			
+			public function set ringWidthPercent( width:Number ) : void
+			{
+				m_ringWidthPercent = width;
+			}
+			
+			/**
+			 *	Okres pełnego obiegu w sekundach.
+			 * 
+			 *  @default 120
+			 */
+			public function get period() : Number
+			{
+				return m_period / 1000;
+			}
+			
+			public function set period( sec:Number ) : void 
+			{
+				m_period = sec * 1000;
+			}
+			
+			/**
+			 *	Kierunek wypełniania pierścienia. Wartość <code>true</code>
+			 *	oznacza kierunek wsakzówek zegara.
+			 * 
+			 *  @default false
+			 */
+			public function get clockwise() : Boolean
+			{
+				return m_clockwise;
+			}
+			
+			public function set clockwise( val:Boolean ) : void 
+			{
+				m_clockwise = val;
+			}
+			
+			/**
+			 * Obecny stopień wypełnienia pierścienia. 
+			 * 
+			 * @default 0
+			 */
+			public function get phase() : Number
+			{
+				return m_phase;
+			}
+			
+			public function set phase( val:Number ) : void 
+			{
+				m_phase = val - Math.floor(val); 
+				
+				invalidateDisplayList();
+			}	
+				
+			/**
+			 * Wypełnianie aktywne/nieaktywne.
+			 * 
+			 * @default false
+			 * @see #autoStart
+			 */
+			[Bindable]
+			public function set running( val:Boolean ) : void 
+			{
+				if ( val ) {
+					
+					m_startPhase = m_phase;
+					m_start = (new Date()).time;
+					m_timer.addEventListener(TimerEvent.TIMER, timerHandler);
+					
+					if ( !m_timer.running ) {
+						m_timer.start();
+					}
+				
+				} else {
+					
+					m_timer.removeEventListener(TimerEvent.TIMER, timerHandler);
+					if ( !m_timer.hasEventListener(TimerEvent.TIMER) ) {
+						m_timer.stop();
+					}
+					
+				}
+				
+				m_running = val;
+			}
+			
+			public function get running() : Boolean
+			{
+				return m_running;
+			}
+			
+			/**
+			 * Automatyczny start po załadowaniu aplikacji.
+			 * 
+			 * @default true
+			 */
+			public var autoStart: Boolean = true;
+						
+			
+			private var m_startPhase:Number = 0;					
+			private var m_phase:Number = 0;
+			private var m_start:Number = 0;
+			private var m_period:Number = 120 * 1000;			
+			private var m_activeColor:uint = 0x007c61;
+			private var m_inactiveColor:uint = 0xe3dfd6;
+			private var m_ringWidth:Number = -1;
+			private var m_ringWidthPercent:Number = 50;
+			private var m_clockwise:Boolean = false;
+			private var m_x:int = 0;
+			private var m_y:int = 0;
+			private var m_r:int = Math.min(m_x, m_y);
+			private var m_w:int = 0;
+			private var m_running:Boolean = false;
+			
+			/* Wielkość kroku interpolacji */
+			private static var m_step:uint = 5;
+			/* Odświerzanie ekranu [ms] */
+			private static var m_refresh:uint = 50; 
+			private static var m_timer:Timer = new Timer(m_refresh);
+			private static var COS:Array = createCosArray();
+			private static var SIN:Array = createSinArray();
+						
+			private function init():void
+			{
+				if (autoStart) {
+					
+					running = true;
+					
+				}		
+			}			
+			
+			private function resizeHandler():void
+			{
+				m_x = width / 2;
+				m_y = height / 2;
+				m_r = Math.min(m_x, m_y);
+				
+				if (m_ringWidth >= 0)
+				{
+					m_w = m_ringWidth;
+				}
+				else if (m_ringWidthPercent >= 0)
+				{
+					m_w = m_r * (m_ringWidthPercent / 100.0);
+				}
+				else
+				{
+					m_w = m_r / 2;
+				}
+				
+				invalidateDisplayList();
+			
+			}
+			
+			private function timerHandler(e:Event):void
+			{
+				
+				phase = m_startPhase + (( (new Date()).time - m_start ) % m_period ) / m_period;
+							
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void 
+			{
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			
+				var r2:Number = m_r - m_w;
+				var end:Number = m_phase * 360;
+				
+				graphics.clear();
+				
+				graphics.beginFill(m_inactiveColor);
+				graphics.drawCircle( m_x, m_y, m_r );
+				graphics.drawCircle( m_x, m_y, r2 );
+				graphics.endFill();
+				
+				graphics.beginFill(m_activeColor);
+				
+				if ( m_clockwise ) {
+					
+					graphics.moveTo( m_x, m_y - r2 );
+					arc( graphics, m_x, m_y, r2, 360, 360-end, -m_step );	
+					arc( graphics, m_x, m_y, m_r, 360-end, 360, m_step );
+					
+				} else {
+					
+					graphics.moveTo( m_x, m_y - r2 );
+					arc( graphics, m_x, m_y, m_r, 0, end, m_step );
+					arc( graphics, m_x, m_y, r2, end, 0, -m_step );
+				}
+				
+				graphics.endFill();
+			}
+			
+			private function arc( g:Graphics, x:Number, y:Number, r:Number, start:Number, end:Number, step:int=2 ) : void
+			{
+				var current:int;
+				
+				if ( step > 0 ) {
+
+					current = Math.ceil( start );				
+					g.lineTo( x - r * Math.sin( 2 * Math.PI / 360 * start ), y - r * Math.cos( 2 * Math.PI / 360 * start) );
+					
+					while( current < end ) {
+						g.lineTo( x - r * SIN[ current ], y - r * COS[ current ]   ); 
+						current += step;
+					}
+					
+					g.lineTo( x - r * Math.sin( 2 * Math.PI / 360 * end ), y - r * Math.cos( 2 * Math.PI / 360 * end) );
+				
+				} else {
+					
+					current = Math.floor( start );
+					g.lineTo( x - r * Math.sin( 2 * Math.PI / 360 * start ), y - r * Math.cos( 2 * Math.PI / 360 * start) );
+					
+					while( current > end ) {
+						g.lineTo( x - r * SIN[ current ], y - r * COS[ current ]   ); 
+						current += step;
+					}
+					
+					g.lineTo( x - r * Math.sin( 2 * Math.PI / 360 * end ), y - r * Math.cos( 2 * Math.PI / 360 * end) );				
+					
+				}
+
+			}
+			
+			private static function createSinArray() : Array {
+				
+				var sins:Array = new Array(361);
+				
+				for ( var i:int = 0; i < 361; i++ ) {
+					sins[i] = Math.sin( 2*Math.PI / 360 * i );
+				}
+				
+				return sins;
+				
+			}
+			
+			private static function createCosArray() : Array {
+				
+				var coss:Array = new Array(361);
+
+				for ( var i:int = 0; i < 361; i++ ) {
+					coss[i] = Math.cos( 2*Math.PI / 360 * i );
+				}
+				
+				return coss;
+				
+			}
+			
+		]]>
+
+	</fx:Script>
+
+</mx:Canvas>
