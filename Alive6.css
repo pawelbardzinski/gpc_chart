@@ -2,8 +2,13 @@
 @namespace mx "library://ns.adobe.com/flex/mx";
 @namespace s "library://ns.adobe.com/flex/spark";
 
-/*global
+global
 {
 	content-background-color: #ffffff;
 	themeColor: Yellow;
-}*/
+	content-background-alpha: 1.0;
+	font-family: Calibri;
+	font-weight: normal;
+	color: #007D60;
+}
+	

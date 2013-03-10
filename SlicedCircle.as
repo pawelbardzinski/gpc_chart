@@ -13,7 +13,7 @@ package
 		private var radius:int;
 		private var sliceColor:uint;
 		
-		public function SlicedCircle(slices:int = 48, radius:int = 24, sliceColor:uint=0x666666)
+		public function SlicedCircle(slices:int = 96, radius:int = 24, sliceColor:uint=0x666666)
 		{
 			super();
 			this.slices = slices;
